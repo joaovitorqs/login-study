@@ -1,5 +1,6 @@
 package com.jpadev.login_study.service;
 
+import com.jpadev.login_study.DTO.UserRequest;
 import com.jpadev.login_study.model.User;
 import com.jpadev.login_study.repository.UserRepository;
 import org.springframework.stereotype.Service;
@@ -24,8 +25,17 @@ public class UserService {
                 .orElseThrow(() -> new RuntimeException("User not found by ID:" + id));
     }
 
-    public User saveUser(User user){
-       return userRepository.save(user); // Voltar e construir com dto
+    public User saveUser(UserRequest userRequest){
+       User user = new User();
+
+       user.setUserEmail(userRequest.getUserEmail());
+       user.setUserPassword(userRequest.getUserPassword());
+
+       return userRepository.save(user);
+    }
+
+    public User saveUserTest(User user){
+        return userRepository.save(user);
     }
 
     public void deleteUserById(Long id){
